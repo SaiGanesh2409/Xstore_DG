@@ -1,0 +1,144 @@
+
+<!--
+  CONFIDENTIAL AND PROPRIETARY SOURCE CODE
+  
+  Use and distribution of this code is subject to applicable 
+  licenses and the permission of the code owner. This notice 
+  does not indicate the actual or intended publication of 
+  this source code.
+ 
+  Portions developed by Charter Communication LLC 
+  and are the property of Charter Communication. 
+ 
+  @author Naman
+  @created May 15, 2020
+  @version $Revision$
+  
+  ===== Modification =========================================== 
+  Scope/Jira ID#           ddMMyy    Description 
+  AGTPORTL17-500			 150520	   In Store Reporting Changes for Return to Any Store Project
+  ============================================================== 
+-->
+<dataTemplate name="CustomReport" xmlns="http://micros.com/xstore/config/report">
+  <labels>
+    <!-- Common Text -->
+    <label name="RESULTS_NO_DATA" value="_rptNoDataToDisplay"/>
+    <label name="DASH_DELIMITER" value="_rptDashDelimiter"/>
+    <label name="HEADER_STORE" value="_rptStore"/>
+    <label name="FOOTER_RUN_DATE" value="_rptReportRunDate"/>
+    <label name="FOOTER_PAGE" value="_rptPage"/>
+    <label name="FOOTER_OF" value="_rptof"/>
+
+    <!-- Template-specific Text -->
+    <label name="ALL" value="_rptDefaultAll"/>
+    <label name="CRITERIA_REPORT_DATE" value="_rptRetailPeriodColon"/>
+    <label name="CRITERIA_PRIOR_DAYS" value="_rptPriorBusinessDaysIncludedOptionColon"/>
+    <label name="CRITERIA_EMPLOYEE" value="_rptDailySalesEmployeeColon"/>
+    <label name="TRANS_DATE_COLON" value="_rptRetailPeriodColon"/>
+    <label name="TRANS_DATE" value="_rptRetailPeriod"/>
+    <label name="TRANSACTIONS" value="_rptDailySalesTransactions"/>
+    <label name="LOCATION_ID" value="_xyzLocationId"/>
+    <label name="REGISTER_ID" value="_xyzRegisterId"/>
+    <label name="BUSINESS_DATE" value="_xyzBusinessDate"/>
+    <label name="TRANSACTION_NUMBER" value="_xyzTransactionNumber"/>
+    <label name="INVOICE_NUMBER" value="_xyzInvoiceNumber"/>
+    <label name="AMOUNT_DUE" value="_xyzAmountDue"/>
+    <label name="TAX_AMOUNT" value="_xyzTaxAmount"/>
+    <label name="UNIT" value="_rptDailySalesUnitPrice"/>
+    <label name="OVERRIDE" value="_rptDailySalesOverridePrice"/>
+    <label name="DISC" value="_rptDiscount"/>
+    <label name="NET" value="_rptNetSales"/>
+    <label name="TOTAL" value="_rptTotal"/>
+    <label name="TOTAL_COLON" value="_rptTotalColon"/>
+    <label name="ORIGINAL_SALE_STORE" value="_rptOrigStoreId"/>    
+  </labels>
+  <parameters>
+    <!-- System Parameters -->
+    <parameter name="systemDate" class="dtv.pos.iframework.type.IDtvDate" include_in_output="true" formatter="DateTimeShort"/>
+    <parameter name="reportTitle" class="java.lang.String" isForPrompting="false" include_in_output="true"/>
+    <parameter name="logo" class="java.lang.String" isForPrompting="false" include_in_output="true"/>
+    <parameter name="organizationId" class="java.lang.Long" isForPrompting="false" include_in_output="false"/>
+    <parameter name="retailLocationId" class="java.lang.Long" isForPrompting="false" include_in_output="true"/>
+    <parameter name="storeName" class="java.lang.String" isForPrompting="false" include_in_output="true"/>
+    
+    <!-- User Parameters -->
+    <parameter name="dtvStartDate" class="dtv.pos.iframework.type.IDtvDate" isForPrompting="true" include_in_output="true">
+      <parameterDescription><![CDATA[_rptRetailPeriod;Date]]></parameterDescription>
+      <defaultValueExpression><![CDATA[dtv.pos.framework.reporting.fill.RelativeDtvDate.TODAY]]></defaultValueExpression>
+    </parameter>
+    <parameter name="priorBusinessDaysIncluded" class="java.lang.String" isForPrompting="true" include_in_output="true">
+      <parameterDescription><![CDATA[_rptPriorBusinessDaysIncludedOption;Combo;dtv.pos.reporting.fill.SoftEnumFactory;0=_rptPriorBusinessDaysIncludedOption0|1=_rptPriorBusinessDaysIncludedOption1|2=_rptPriorBusinessDaysIncludedOption2|3=_rptPriorBusinessDaysIncludedOption3|4=_rptPriorBusinessDaysIncludedOption4|5=_rptPriorBusinessDaysIncludedOption5|6=_rptPriorBusinessDaysIncludedOption6]]></parameterDescription>
+    </parameter>
+    <parameter name="employeeId" class="java.lang.String" isForPrompting="true" include_in_output="true">
+      <parameterDescription><![CDATA[_rptDailySalesEmployee;Text;Simple;maxLength=30]]></parameterDescription>
+    </parameter>
+    <parameter name="showDailyTotals" class="java.lang.String" isForPrompting="true" include_in_output="true">
+      <parameterDescription><![CDATA[_rptDailySalesDailyTotalsCriteria;Combo;dtv.pos.reporting.fill.SoftEnumFactory;YES=_rptDefaultYes|NO=_rptDefaultNo]]></parameterDescription>
+      <defaultValueExpression><![CDATA["YES"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="showCriteria" class="java.lang.String" isForPrompting="true" include_in_output="true">
+      <parameterDescription><![CDATA[_rptShowReportCriteria;Combo;dtv.pos.reporting.fill.SoftEnumFactory;YES=_rptDefaultYes|NO=_rptDefaultNo]]></parameterDescription>
+      <defaultValueExpression><![CDATA["YES"]]></defaultValueExpression>
+    </parameter>
+  </parameters>
+  <dataSource>
+    <queryReference name="Q_TRANSACTION_LINE_ITEMS" key="DAILY_SALES_REPORT">
+      <Parameters>
+        <Parameter>employeeId</Parameter>
+        <Parameter>organizationId</Parameter>
+        <Parameter>retailLocationId</Parameter>
+        <Parameter>argBusinessDateStart</Parameter>
+        <Parameter>argBusinessDateEnd</Parameter>
+      </Parameters>
+      <ResultFields>
+        <ResultField>trans_date</ResultField>
+        <ResultField>trans_seq</ResultField>
+        <ResultField>rtrans_lineitm_seq</ResultField>
+        <ResultField>rtrans_lineitm_1</ResultField>
+        <ResultField>wkstn_id</ResultField>
+        <ResultField>employee_id</ResultField>
+        <ResultField>item_id</ResultField>
+        <ResultField>quantity</ResultField>
+        <ResultField>price_change_amt</ResultField>
+        <ResultField>discounts</ResultField>
+        <ResultField>net_sales</ResultField>
+        <ResultField>item_price</ResultField>
+        <ResultField>item_description</ResultField>
+        <ResultField>original_rtl_loc_id</ResultField>
+      </ResultFields>
+    </queryReference>
+  </dataSource>
+  <dataStructure>
+    <group name="G_ITM" source="Q_TRANSACTION_LINE_ITEMS">
+      <element name="DATE" value="trans_date" formatter="DateMedium"/>
+      <element name="REG" value="wkstn_id"/>
+      <element name="TRN" value="trans_seq"/>
+      <element name="LNITM" value="rtrans_lineitm_seq"/>
+      <element name="EMP" value="employee_id"/>
+      <element name="ITM" value="item_id"/>
+      <element name="DESC" value="item_description" />
+      <element name="PRICE" value="item_price" formatter="Money"/>
+      <element name="QTY" value="quantity" formatter="Decimal"/> 
+      <element name="CHNG" value="price_change_amt" formatter="Money"/>
+      <element name="DISC" value="discounts" formatter="Money"/>
+      <element name="NET" value="net_sales" formatter="Money"/>
+      <element name="ORIGINAL_RTL_LOC_ID" value="original_rtl_loc_id"/>
+    </group>
+    <group name="G_TRN" source="Q_TRANSACTION_LINE_ITEMS">
+      <element name="DATE" group-by="true" value="trans_date" formatter="DateMedium"/>
+      <element name="TRN" group-by="true" value="trans_seq"/>
+      <element name="REG" group-by="true" value="wkstn_id"/>
+      <element name="NET" value="net_sales" formatter="Money" function="SUM"/>
+     
+    </group>
+    <group name="G_DAY" source="Q_TRANSACTION_LINE_ITEMS">
+      <element name="DATE" group-by="true" value="trans_date" formatter="DateMedium"/>
+      <element name="CNT" value="rtrans_lineitm_1" formatter="Decimal" function="SUM"/>
+      <element name="NET" value="net_sales" formatter="Money" function="SUM"/>
+    </group>
+    <group name="G_TTL" source="Q_TRANSACTION_LINE_ITEMS">
+      <element name="CNT" value="rtrans_lineitm_1" formatter="Decimal" function="SUM"/>
+      <element name="NET" value="net_sales" formatter="Money" function="SUM"/>
+    </group>
+  </dataStructure>
+</dataTemplate>

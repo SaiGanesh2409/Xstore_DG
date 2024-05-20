@@ -1,0 +1,925 @@
+**************************************                                          
+* UPGRADE to release 21.0                                                       
+**************************************                                          
+
+PL/SQL procedure successfully completed.
+
+
+Session altered.
+
+'***** Prefix scripts start *****'
+--- CREATING SP_COLUMN_EXISTS ---                                               
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_TABLE_EXISTS ---                                                
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_TRIGGER_EXISTS ---                                              
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING CREATE_PROPERTY_TABLE ---                                          
+
+PL/SQL procedure successfully completed.
+
+old  93: TABLESPACE &dbIndexTableSpace.
+new  93: TABLESPACE xyz_xtraining_18_1001_INDEX
+old  95: TABLESPACE &dbDataTableSpace.';
+new  95: TABLESPACE xyz_xtraining_18_1001_DATA';
+
+Procedure created.
+
+--- CREATING SP_INDEX_EXISTS ---                                                
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_PRIMARYKEY_EXISTS ---                                           
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_IS_NULLABLE ---                                                 
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_PK_CONSTRAINT_EXISTS ---                                        
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+--- CREATING SP_INDEX_COLUMNS ---                                               
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+'***** Prefix scripts end *****'
+'***** Body scripts start *****'
+Step Add Column: DTX[TenderCount] Column[[Field=localCurrencyDifferenceAmount]] 
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+Column tsn_tndr_tndr_count.local_currency_difference_amt already exists         
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[TenderCount] Column[[Field=localCurrencyDifferenceAmount]] 
+end.                                                                            
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCountSection] Column[[Field=inventoryLocationId]] 
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section dropped                                                    
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_P dropped                                                  
+
+PL/SQL procedure successfully completed.
+
+Column inv_count_section.inv_location_id already exists                         
+
+PL/SQL procedure successfully completed.
+
+Column inv_count_section_P.inv_location_id already exists                       
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section ADD CONSTRAINT pk_inv_count_section PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section ADD CONSTRAINT pk_inv_count_section PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section created                                                 
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_P ADD CONSTRAINT pk_inv_count_section_P PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, property_code) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_P ADD CONSTRAINT pk_inv_count_section_P PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, property_code) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section_P created                                               
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCountSection] Column[[Field=inventoryLocationId]] 
+end.                                                                            
+
+PL/SQL procedure successfully completed.
+
+Step Drop Primary Key: DTX[InventoryCountSection] starting...                   
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section dropped                                                    
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_P dropped                                                  
+
+PL/SQL procedure successfully completed.
+
+Step Drop Primary Key: DTX[InventoryCountSection] end.                          
+
+PL/SQL procedure successfully completed.
+
+Step Add Primary Key: DTX[InventoryCountSection] starting...                    
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section ADD CONSTRAINT pk_inv_count_section PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section ADD CONSTRAINT pk_inv_count_section PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section created                                                 
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_P ADD CONSTRAINT pk_inv_count_section_P PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, property_code) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_P ADD CONSTRAINT pk_inv_count_section_P PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, property_code) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section_P created                                               
+
+PL/SQL procedure successfully completed.
+
+Step Add Primary Key: DTX[InventoryCountSection] end.                           
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCountSectionDetail]                               
+Column[[Field=inventoryLocationId]] starting...                                 
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_detail dropped                                             
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_detail_P dropped                                           
+
+PL/SQL procedure successfully completed.
+
+Column inv_count_section_detail.inv_location_id already exists                  
+
+PL/SQL procedure successfully completed.
+
+Column inv_count_section_detail_P.inv_location_id already exists                
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail ADD CONSTRAINT pk_inv_count_section_detail PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail ADD CONSTRAINT pk_inv_count_section_detail PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section_detail created                                          
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail_P ADD CONSTRAINT pk_invcountsectiondetailP PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr, property_code) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail_P ADD CONSTRAINT pk_invcountsectiondetailP PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr, property_code) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_invcountsectiondetailP created                                            
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCountSectionDetail]                               
+Column[[Field=inventoryLocationId]] end.                                        
+
+PL/SQL procedure successfully completed.
+
+Step Drop Primary Key: DTX[InventoryCountSectionDetail] starting...             
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_detail dropped                                             
+
+PL/SQL procedure successfully completed.
+
+PK inv_count_section_detail_P dropped                                           
+
+PL/SQL procedure successfully completed.
+
+Step Drop Primary Key: DTX[InventoryCountSectionDetail] end.                    
+
+PL/SQL procedure successfully completed.
+
+Step Add Primary Key: DTX[InventoryCountSectionDetail] starting...              
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail ADD CONSTRAINT pk_inv_count_section_detail PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail ADD CONSTRAINT pk_inv_count_section_detail PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_inv_count_section_detail created                                          
+
+PL/SQL procedure successfully completed.
+
+old   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail_P ADD CONSTRAINT pk_invcountsectiondetailP PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr, property_code) USING INDEX TABLESPACE &dbIndexTableSpace.';
+new   6:     EXECUTE IMMEDIATE 'ALTER TABLE inv_count_section_detail_P ADD CONSTRAINT pk_invcountsectiondetailP PRIMARY KEY (organization_id, rtl_loc_id, inv_location_id, inv_bucket_id, section_id, section_detail_nbr, property_code) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX';
+PK pk_invcountsectiondetailP created                                            
+
+PL/SQL procedure successfully completed.
+
+Step Add Primary Key: DTX[InventoryCountSectionDetail] end.                     
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCount] Column[[Field=inventoryLocationId]]        
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+Column inv_count.inv_location_id already exists                                 
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[InventoryCount] Column[[Field=inventoryLocationId]] end.   
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[VoucherSaleLineItem] Column[[Field=cardType]] starting...  
+
+PL/SQL procedure successfully completed.
+
+Column trl_voucher_sale_lineitm.card_type already exists                        
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[VoucherSaleLineItem] Column[[Field=cardType]] end.         
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[VoucherTenderLineItem] Column[[Field=cardType]] starting...
+
+PL/SQL procedure successfully completed.
+
+Column ttr_voucher_tndr_lineitm.card_type already exists                        
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[VoucherTenderLineItem] Column[[Field=cardType]] end.       
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[PtAts] starting...                                          
+
+PL/SQL procedure successfully completed.
+
+old  18: CONSTRAINT pk_cpor_ats PRIMARY KEY (organization_id, rtl_loc_id, wkstn_id, sequence_id, series, year) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  18: CONSTRAINT pk_cpor_ats PRIMARY KEY (organization_id, rtl_loc_id, wkstn_id, sequence_id, series, year) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  20: TABLESPACE &dbDataTableSpace.
+new  20: TABLESPACE xyz_xtraining_18_1001_DATA
+Table cpor_ats already exists                                                   
+
+PL/SQL procedure successfully completed.
+
+Table CPOR_ATS_P already exists                                                 
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[PtAts] end.                                                 
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[WorkstationConfigData] Column[[Field=linkColumn]]          
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+Column loc_wkstn_config_data.link_column already exists                         
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[WorkstationConfigData] Column[[Field=linkColumn]] end.     
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[LegalEntity] Column[[Field=establishmentCode,              
+Field=registrationCity]] starting...                                            
+
+PL/SQL procedure successfully completed.
+
+Column loc_legal_entity.establishment_code already exists                       
+
+PL/SQL procedure successfully completed.
+
+Column loc_legal_entity.registration_city already exists                        
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[LegalEntity] Column[[Field=establishmentCode,              
+Field=registrationCity]] end.                                                   
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[FrRcptDuplicate] Column[[Field=documentType]] starting...  
+
+PL/SQL procedure successfully completed.
+
+Column cfra_rcpt_dup.document_type already exists                               
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[FrRcptDuplicate] Column[[Field=documentType]] end.         
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[FrInvoiceDuplicate] starting...                             
+
+PL/SQL procedure successfully completed.
+
+old  30: CONSTRAINT pk_cfra_invoice_dup PRIMARY KEY (organization_id, rtl_loc_id, wkstn_id, reprint_id, doc_number) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  30: CONSTRAINT pk_cfra_invoice_dup PRIMARY KEY (organization_id, rtl_loc_id, wkstn_id, reprint_id, doc_number) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  32: TABLESPACE &dbDataTableSpace.
+new  32: TABLESPACE xyz_xtraining_18_1001_DATA
+Table cfra_invoice_dup already exists                                           
+
+PL/SQL procedure successfully completed.
+
+Table CFRA_INVOICE_DUP_P already exists                                         
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[FrInvoiceDuplicate] end.                                    
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementTransaction] starting...                          
+
+PL/SQL procedure successfully completed.
+
+old  17: CONSTRAINT pk_egt_trans PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  17: CONSTRAINT pk_egt_trans PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  19: TABLESPACE &dbDataTableSpace.
+new  19: TABLESPACE xyz_xtraining_18_1001_DATA
+Table egt_trans already exists                                                  
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementTransaction] end.                                 
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementLineItem] starting...                             
+
+PL/SQL procedure successfully completed.
+
+old  20: CONSTRAINT pk_egt_trans_lineitm PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq, rtrans_lineitm_seq) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  20: CONSTRAINT pk_egt_trans_lineitm PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq, rtrans_lineitm_seq) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  22: TABLESPACE &dbDataTableSpace.
+new  22: TABLESPACE xyz_xtraining_18_1001_DATA
+Table egt_trans_lineitm already exists                                          
+
+PL/SQL procedure successfully completed.
+
+Table EGT_TRANS_LINEITM_P already exists                                        
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementLineItem] end.                                    
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementRoom] starting...                                 
+
+PL/SQL procedure successfully completed.
+
+old  20: CONSTRAINT pk_egt_room PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq, room_lineitm_seq) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  20: CONSTRAINT pk_egt_room PRIMARY KEY (organization_id, rtl_loc_id, business_date, wkstn_id, trans_seq, room_lineitm_seq) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  22: TABLESPACE &dbDataTableSpace.
+new  22: TABLESPACE xyz_xtraining_18_1001_DATA
+Table egt_room already exists                                                   
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[EngagementRoom] end.                                        
+
+PL/SQL procedure successfully completed.
+
+Step Drop Column: DTX[LegalEntity] Column[[Column=business_activity]]           
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+Column loc_legal_entity.business_activity is missing                            
+
+PL/SQL procedure successfully completed.
+
+Step Drop Column: DTX[LegalEntity] Column[[Column=business_activity]] end.      
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[LegalEntity] Column[[Field=activityDescription]]           
+starting...                                                                     
+
+PL/SQL procedure successfully completed.
+
+Column loc_legal_entity.activity_description already exists                     
+
+PL/SQL procedure successfully completed.
+
+Step Add Column: DTX[LegalEntity] Column[[Field=activityDescription]] end.      
+
+PL/SQL procedure successfully completed.
+
+Step Drop Table: DTX[civc_taxfree_card_range] starting...                       
+
+PL/SQL procedure successfully completed.
+
+Table civc_taxfree_card_range is missing                                        
+
+PL/SQL procedure successfully completed.
+
+Step Drop Table: DTX[civc_taxfree_card_range] end.                              
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 starting...                           
+
+PL/SQL procedure successfully completed.
+
+Column ttr_ar_tndr_lineitm.orig_STAN modify                                     
+
+PL/SQL procedure successfully completed.
+
+Column ttr_ar_tndr_lineitm.orig_STAN already nullable                           
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 end.                                  
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 starting...                           
+
+PL/SQL procedure successfully completed.
+
+Column ttr_check_tndr_lineitm.orig_STAN modify                                  
+
+PL/SQL procedure successfully completed.
+
+Column ttr_check_tndr_lineitm.orig_STAN already nullable                        
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 end.                                  
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 starting...                           
+
+PL/SQL procedure successfully completed.
+
+Column ttr_credit_debit_tndr_lineitm.orig_STAN modify                           
+
+PL/SQL procedure successfully completed.
+
+Column ttr_credit_debit_tndr_lineitm.orig_STAN already nullable                 
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 end.                                  
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 starting...                           
+
+PL/SQL procedure successfully completed.
+
+Column ttr_voucher_tndr_lineitm.orig_STAN modify                                
+
+PL/SQL procedure successfully completed.
+
+Column ttr_voucher_tndr_lineitm.orig_STAN already nullable                      
+
+PL/SQL procedure successfully completed.
+
+Step change datalength from size 30 to 60 end.                                  
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[PayByLinkAdyenResult] starting...                           
+
+PL/SQL procedure successfully completed.
+
+old  24: CONSTRAINT pk_tnd_pbl_adyen_result PRIMARY KEY (organization_id, psp_reference) USING INDEX TABLESPACE &dbIndexTableSpace.
+new  24: CONSTRAINT pk_tnd_pbl_adyen_result PRIMARY KEY (organization_id, psp_reference) USING INDEX TABLESPACE xyz_xtraining_18_1001_INDEX
+old  26: TABLESPACE &dbDataTableSpace.
+new  26: TABLESPACE xyz_xtraining_18_1001_DATA
+Table tnd_pbl_adyen_result already exists                                       
+
+PL/SQL procedure successfully completed.
+
+Table TND_PBL_ADYEN_RESULT_P already exists                                     
+
+PL/SQL procedure successfully completed.
+
+Step Add Table: DTX[PayByLinkAdyenResult] end.                                  
+
+PL/SQL procedure successfully completed.
+
+'***** Body scripts end *****'
+'**************************************'
+'Finalizing UPGRADE release 21.0'
+'**************************************'
+Step Add Table: DTX[PayByLinkAdyenResult] end.                                  
+
+PL/SQL procedure successfully completed.
+
+--- CREATING RPT_TRL_SALE_LINEITM_VIEW                                          
+
+PL/SQL procedure successfully completed.
+
+
+View created.
+
+
+View created.
+
+
+Grant succeeded.
+
+--- CREATING Test_Connection                                                    
+
+PL/SQL procedure successfully completed.
+
+
+View created.
+
+
+Grant succeeded.
+
+--- CREATING RPT_TRL_STOCK_MOVEMENT_VIEW                                        
+
+PL/SQL procedure successfully completed.
+
+
+View created.
+
+
+View created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION DATEADD                                                   
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION DATEPART                                                  
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+DAY                                                                             
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION FN_GETSESSIONID                                           
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION GETDATE                                                   
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION GETUTCDATE                                                
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+MONTH                                                                           
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_ins_upd_hourly_sales                                  
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_ins_upd_merchlvl1_sales                               
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION sp_replace_org_id                                         
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE SP_TRUNCATE_TABLE                                        
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+YEAR                                                                            
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION fn_NLS_LOWER                                              
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION fn_NLS_UPPER                                              
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION fn_ParseDate                                              
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Type created.
+
+--- CREATING FUNCTION fn_integerListToTable                                     
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Type created.
+
+--- CREATING FUNCTION fn_nodesInHierarchy                                       
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION fn_storesInHierarchy                                      
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_conv_to_unicode                                       
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_fifo_detail                                           
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING procedure SP_FIFO_SUMMARY                                          
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_ins_upd_flash_sales                                   
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION sp_next_sequence_value                                    
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_set_sequence_value                                    
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_tables_inmemory                                       
+
+PL/SQL procedure successfully completed.
+
+old  23: ALTER TABLESPACE &dbDataTableSpace. DEFAULT INMEMORY MEMCOMPRESS FOR QUERY HIGH;');
+new  23: ALTER TABLESPACE xyz_xtraining_18_1001_DATA DEFAULT INMEMORY MEMCOMPRESS FOR QUERY HIGH;');
+old  27: ALTER TABLESPACE &dbDataTableSpace. DEFAULT NO INMEMORY;');
+new  27: ALTER TABLESPACE xyz_xtraining_18_1001_DATA DEFAULT NO INMEMORY;');
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE sp_write_dbms_output_to_file                             
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION SP_EXPORT_DATABASE                                        
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE SP_FLASH                                                 
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+--- CREATING FUNCTION SP_IMPORT_DATABASE                                        
+
+PL/SQL procedure successfully completed.
+
+
+Function created.
+
+
+Grant succeeded.
+
+--- CREATING PROCEDURE SP_REPORT                                                
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+
+Grant succeeded.
+
+
+Trigger created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+PL/SQL procedure successfully completed.
+

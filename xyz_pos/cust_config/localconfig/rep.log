@@ -1,0 +1,28 @@
+
+Session altered.
+
+old  30:       TABLESPACE &dbIndexTableSpace.
+new  30:       TABLESPACE xyz_repqueue_18_1001_INDEX
+old  32:       TABLESPACE &dbDataTableSpace.'
+new  32:       TABLESPACE xyz_repqueue_18_1001_DATA'
+
+PL/SQL procedure successfully completed.
+
+old  31:     TABLESPACE &dbIndexTableSpace.
+new  31:     TABLESPACE xyz_repqueue_18_1001_INDEX
+old  33:     TABLESPACE &dbDataTableSpace.'
+new  33:     TABLESPACE xyz_repqueue_18_1001_DATA'
+
+PL/SQL procedure successfully completed.
+
+old  29:     TABLESPACE &dbIndexTableSpace.
+new  29:     TABLESPACE xyz_repqueue_18_1001_INDEX
+old  31:     TABLESPACE &dbDataTableSpace.'
+new  31:     TABLESPACE xyz_repqueue_18_1001_DATA'
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+SQL> 

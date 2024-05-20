@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+<DataSourceSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/DataSourceConfig.xsd">
+  
+  <DataSource name="Xcenter" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${xcenter.db.username}" />
+    <Property key="ConnectionPassword" value="${xcenter.db.password}" />
+    <Property key="ConnectionURL" value="${xcenter.db.connectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${xcenter.db.ping.host}" />
+      <Property key="Port" value="${xcenter.db.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="StoreBackup" networkScope="LAN" enabled="false">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${storebackup.db.user}" />
+    <Property key="ConnectionPassword" value="${storebackup.db.pwd}" />
+    <Property key="ConnectionURL" value="${dtv.datasource.storebackup.ConnectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.datasource.storebackup.ping.Host}" />
+      <Property key="Port" value="${dtv.datasource.storebackup.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="StorePrimary" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${storeprimary.db.user}" />
+    <Property key="ConnectionPassword" value="${storeprimary.db.pwd}" />
+    <Property key="ConnectionURL" value="${dtv.datasource.storeprimary.ConnectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.datasource.storeprimary.ping.Host}" />
+      <Property key="Port" value="${dtv.datasource.storeprimary.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Local" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${local.db.user}" />
+    <Property key="ConnectionPassword" value="${local.db.pwd}" />
+    <Property key="ConnectionURL" value="${dtv.datasource.local.ConnectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.datasource.local.ping.Host}" />
+      <Property key="Port" value="${dtv.datasource.local.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Replication" networkScope="LAN" highAvailability="true">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${repl.db.user}" />
+    <Property key="ConnectionPassword" value="${repl.db.pwd}" />
+    <Property key="ConnectionURL" value="${dtv.datasource.replication.ConnectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.datasource.replication.ping.Host}" />
+      <Property key="Port" value="${dtv.datasource.replication.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Training" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${training.db.user}" />
+    <Property key="ConnectionPassword" value="${training.db.pwd}" />
+    <Property key="ConnectionURL" value="${dtv.datasource.training.ConnectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.datasource.training.ping.Host}" />
+      <Property key="Port" value="${dtv.datasource.training.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+</DataSourceSet>

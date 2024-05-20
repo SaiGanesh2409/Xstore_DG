@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../../config-objects/schema/QueryConfig.xsd">
+	<Queries>
+	
+	
+	<Query name="CUSTOM_REPORT" pmType="REPORTS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="business_date" type="Date" />
+    <ResultField name="location_id" type="String" />
+    <ResultField name="Register_id" type="String" />
+    <ResultField name="transaction_number" type="String" />
+    <ResultField name="Tax_amount" type="BigDecimal" />
+    <ResultField name="Invoice_number" type="String" />
+    <ResultField name="Amount_due" type="String" />
+  
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+          select Distinct
+       TSL.organization_id,
+       tsl.rtl_loc_id as location_id,
+       TSL.business_date,
+       TSL.wkstn_id as Register_id, 
+       TSL.trans_seq as transaction_number,
+        TSTL.tax_amt as Tax_amount
+       
+        from trl_sale_lineitm tsl
+        
+      Inner Join  TTR_TNDR_LINEITM ttl ON
+        
+        ttl.trans_seq=TSL.trans_seq
+        AND tsl.rtl_loc_id=ttl.rtl_loc_id
+        AND TSL.business_date=ttl.business_date
+        AND TSL.wkstn_id=ttl.wkstn_id
+        AND TSL.trans_seq=ttl.trans_seq
+         
+        
+        Inner Join TRL_SALE_TAX_LINEITM TSTL ON 
+        
+        TSTL.trans_seq=ttl.trans_seq;
+
+          WHERE
+            tsl.organization_id = ?
+            AND tsl.rtl_loc_id = ?
+            AND tsl.business_date BETWEEN ? AND ?
+            AND /UPPER/ tsl.trans_statcode = 'COMPLETE'
+      ]]></Statement>
+      <Parameter name="organizationId" />
+      <Parameter name="retailLocationId" />
+      <Parameter name="argBusinessDateStart" />
+      <Parameter name="argBusinessDateEnd" />
+      <Expression trigger="employeeId"><![CDATA[/UPPER/ crp.employee_id LIKE ?]]></Expression>
+
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY  tsl.rtl_loc_id, TSL.business_date, TSL.wkstn_id, TSTL.tax_amt]]></Suffix>
+  </Query>
+	</Queries>
+	
+	</QuerySet>

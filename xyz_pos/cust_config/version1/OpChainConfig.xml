@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpChainSet xmlns="http://micros.com/xstore/config/opchain">
+
+<OpChain name="CUSTOMER.REVIEW_INFORMATION_CONSENT">
+    <Op class="dtv.pos.customer.consent.CustomerConsentOp" />
+    <Op class="dtv.pos.customer.consent.CaptureSignatureOp" />
+    <Op class="dtv.pos.hardware.op.BuildRcptsOp" />
+    <OpChainRoute chainKey="LUXURY_RECEIPTS_PREPARE" />
+    <Op class="dtv.pos.hardware.op.PrintRcptsOp" />
+    <Op class="dtv.pos.hardware.op.WaitForRcptPrintOp" required="false" />
+    <OpChainRoute chainKey="LUXURY_RECEIPTS_PRINT_NO_PERSIST" condition="oracle.retail.xstore.countrypack.common.luxuryreceipt.HasLuxuryReceipts" />
+    <PromptOp class="dtv.pos.customer.consent.VerifyCustomerConsentOp" />
+    <OpChainRoute chainKey="CUSTOMER.PROCESS_CUSTOMER_CONSENT" condition="dtv.pos.customer.account.condition.CustomerAccountHasWritePrivilegeRunCondition" />
+  </OpChain>
+  <OpChain name="CUSTOMER.PROCESS_CUSTOMER_CONSENT">
+    <WorkerOp workersBean="processCustomerConsentWorkers" />
+    <PromptOp key="NOTIFY_CUSTOMER_CONSENT_UPDATED" />
+  </OpChain>    
+    
+    
+<!-- Tendering related chains -->
+  <OpChain name="PRE_TENDERING">
+  
+
+  
+    <ValidationOp validationsBean="orderMixingRules" />
+    <ValidationOp validationsBean="amountDueRules" />
+    <ValidationOp class="dtv.pos.register.returns.ValidateBlindReturnsAmountOp" validationsBean="returnBlindAmountRules" />
+    <OpChainRoute chainKey="PRE_TENDERING.pre" />
+    <OpChainRoute chainKey="CHARITY" />
+    <!-- Start 183622 -->
+    <Op class="dtv.pos.common.TransactionPropertyPromptOp">
+      <Parameter name="TransactionState" value="PRE_TENDER" />
+    </Op>
+    <Op class="dtv.pos.common.TransactionPropertyCreateTransactionOp" />
+    <!-- End 183622 -->
+    <PromptOp class="dtv.pos.util.crypto.NagAboutBadEncryptionOp" />
+    
+  
+  
+    
+    
+    <OpChainRoute chainKey="PRE_TENDERING.CUSTOMER_CHECK" />
+    <OpChainRoute chainKey="PRE_TENDERING.1" />
+    <OpChainRoute chainKey="PRE_TENDERING.2" /> <!-- This additional hook can be helpful for supporting fiscal printers -->
+    <OpChainRoute chainKey="PRE_TENDERING.3" />
+    <OpChainRoute chainKey="PRE_TENDERING.invoice" />
+    <OpChainRoute chainKey="REFUND_ORIG_CREDIT_CARD_TENDER" condition="dtv.pos.tender.check.RefundToOrigCreditCardCondition" />
+    <Op class="dtv.pos.hardware.op.SubtotalCustomerDisplayOp" />
+    <OpChainRoute chainKey="PRE_TENDERING.post" />
+    <OpChainRoute>
+      <Choice chainKey="CHECK_SALE_COMPLETE_REFUND_ORIG_CREDIT_CARD" chainType="START" condition="dtv.pos.register.condition.AnyRefundedOriginalCreditCardRunCondition" />
+      <Choice chainKey="CHECK_SALE_COMPLETE" chainType="START" />
+    </OpChainRoute>    
+  </OpChain>
+
+
+
+
+
+
+<OpChain name="CUSTOM_REPORT">
+    <Op class="dtv.pos.reporting.LoadReportOp">
+      <Parameter name="reportName" value="CUSTOM_REPORT" />
+    </Op>
+    <Op class="dtv.pos.reporting.PromptReportParametersOp" breakpoint="true" />
+  </OpChain>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  	
+  
+  <OpChain name="SALE_ITEM_AFTER_LOOKUP">
+    <OpChainRoute chainKey="VALIDATE_ITEM_AVAILABILITY_FOR_SALE" />
+    <PromptOp class="dtv.pos.item.restriction.PromptForCashierAgeVerificationOp">
+      <Parameter name="SaleItemType" value="SALE" />
+    </PromptOp>
+    <ValidationOp validationsBean="sellingIdGroupRules" />
+    <Op class="dtv.pos.register.CreateSaleLineItemOp" />
+    <Op class="com.dollargeneral.xstore.item.dimension.DGCheckStyleLookupOp">
+      <Parameter name="SaleItemType" value="SALE" />
+    </Op>
+    <OpChainRoute chainKey="VALIDATE_ITEM_AVAILABILITY" />
+    <OpChainRoute chainKey="SALE_ITEM_AFTER_LOOKUP.start" />
+    <PromptOp class="dtv.pos.hardware.scale.op.WeighItemOp" validationsBean="itemWeightRules" />
+    <PromptOp class="dtv.pos.register.sale.PromptForItemWeightOp" validationsBean="itemWeightRules" />
+    <ValidationOp class="dtv.pos.item.barcode.ValidateItemWeightBarcodeOp" validationsBean="itemWeightRules" />
+    <OpChainRoute chainKey="VALIDATE_MINIMUM_AGE_FOR_ITEM" />
+   <!-- this is for India specific country pack  -->
+    <OpChainRoute chainKey="MRP_ITEM_PRICE" condition="dtv.pos.register.IsMrpPriceTypeEnabled" />
+<!-- <Op class="dtv.pos.register.sale.RouteSaleItemOp" /> -->
+    <OpChainRoute>
+      <!-- @todo add routing to more chains as more types of items are converted, see RouteSaleItemOp
+           Warrantries and house account payments still need to be handled. -->
+      <Choice chainKey="SALE_ITEM_FINISH" condition="dtv.pos.register.IsPhysicalItem" />
+      <Choice chainKey="SALE_VOUCHER_START">
+        <Condition class="dtv.pos.register.IsNonPhysicalItem">
+          <Parameter name="ItemType" value="VOUCHER" />
+        </Condition>
+      </Choice>
+      <Choice chainKey="CREDIT_PAYMENT">
+        <Condition class="dtv.pos.register.IsNonPhysicalItem">
+          <Parameter name="ItemType" value="CREDIT_PAYMENT" />
+        </Condition>
+      </Choice>
+      <Choice chainKey="SALE_WARRANTY">
+        <Condition class="dtv.pos.register.IsNonPhysicalItem">
+          <Parameter name="ItemType" value="WARRANTY" />
+        </Condition>
+      </Choice>
+      <Choice chainKey="SALE_WARRANTY_GIFT">
+        <Condition class="dtv.pos.register.IsNonPhysicalItem">
+          <Parameter name="ItemType" value="WARRANTY_GIFT" />
+        </Condition>
+      </Choice>
+      <Choice chainKey="SALE_WARRANTY_RENEW">
+        <Condition class="dtv.pos.register.IsNonPhysicalItem">
+          <Parameter name="ItemType" value="WARRANTY_RENEWAL" />
+        </Condition>
+      </Choice>
+      <Choice chainKey="SALE_NON_PHYSICAL_FINISH" condition="dtv.pos.register.IsNonPhysicalItem" />
+    </OpChainRoute>
+    <OpChainRoute chainKey="SALE_ITEM_AFTER_LOOKUP.finish" />
+  </OpChain>
+  
+  <OpChain name="SALE_ITEM_DIMENSION" contextKey="SALE" rollbackChainKey="ROLLBACK_TRANS_PROMPT"
+    rollbackLevel="10">
+    <Op class="dtv.pos.framework.security.op.StartAutoLogoutTimerOp" />
+    <OpChainRoute chainKey="DISPLAY_INFO_TAB_MESSAGE" />
+    <Op class="dtv.pos.hardware.op.ItemCustDisplayOp" />
+    <!-- <PromptOp class="dtv.pos.register.sale.PromptItemScanOp" contextKey="SALE" validationsBean="itemIdRules" breakpoint="true" /> -->
+    
+    <ValidationOp validationsBean="gs1ItemRestrictionRules" />
+    <ValidationOp class="dtv.pos.coupon.LookupCouponFromItemIdOp" validationsBean="couponVerificationRules" />
+    <Op class="dtv.pos.document.bounceback.op.LookupBounceBackCouponOp" />
+    <Op class="dtv.pos.item.barcode.LookupBarcodeFromItemIdOp"/>
+    <ValidationOp class="dtv.pos.register.sale.CheckItemNotOnFileOp" validationsBean="itemNotOnFileRules" />
+    <ValidationOp class="dtv.pos.item.barcode.ValidateItemEmbeddedBarcodeOp" validationsBean="saleBarcodePropertyRules" />
+    <ValidationOp validationsBean="sellingIdGroupRules" />
+    <OpChainRoute chainKey="SALE_ITEM_AFTER_LOOKUP" />
+  </OpChain>
+  
+  <OpChain name="FS_PARENT_ITEMS_START">
+  	<Op class="com.dollargeneral.xstore.item.dimension.DGFinancialServicesParentItemsPromptOp" breakpoint="true"/>
+  	
+  </OpChain>
+  
+  <OpChain name="DG_ITEM_DIMENSIONS" contextKey="SALE" >    
+    <Op class="dtv.pos.framework.security.op.StartAutoLogoutTimerOp" />
+    <OpChainRoute chainKey="DISPLAY_INFO_TAB_MESSAGE" />
+    <Op class="dtv.pos.hardware.op.ItemCustDisplayOp" />
+    <Op class="com.dollargeneral.xstore.item.dimension.DgAbstractItemScanOp" /> 
+    <OpChainRoute chainKey="DG_SALE_ITEM" />
+  </OpChain>
+  
+  <OpChain name="DG_SALE_ITEM" contextKey="SALE" >
+	  <ValidationOp validationsBean="gs1ItemRestrictionRules" />
+	    <ValidationOp class="dtv.pos.coupon.LookupCouponFromItemIdOp" validationsBean="couponVerificationRules" />
+	    <Op class="dtv.pos.document.bounceback.op.LookupBounceBackCouponOp" />
+	    <Op class="dtv.pos.item.barcode.LookupBarcodeFromItemIdOp"/>
+	    <ValidationOp class="dtv.pos.register.sale.CheckItemNotOnFileOp" validationsBean="itemNotOnFileRules" />
+	    <ValidationOp class="dtv.pos.item.barcode.ValidateItemEmbeddedBarcodeOp" validationsBean="saleBarcodePropertyRules" />
+	    <ValidationOp validationsBean="sellingIdGroupRules" />
+	    <OpChainRoute chainKey="SALE_ITEM_AFTER_LOOKUP" />
+   </OpChain>
+  
+
+  
+</OpChainSet>
+   

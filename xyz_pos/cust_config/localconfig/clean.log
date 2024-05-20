@@ -1,0 +1,31 @@
+drop user xyz_repqueue_18_1001 cascade
+          *
+ERROR at line 1:
+ORA-01918: user 'XYZ_REPQUEUE_18_1001' does not exist 
+
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+old  11:   execute immediate 'DROP TABLESPACE &dbDataTableSpace. INCLUDING CONTENTS AND DATAFILES';
+new  11:   execute immediate 'DROP TABLESPACE xyz_repqueue_18_1001_DATA INCLUDING CONTENTS AND DATAFILES';
+old  13:                      lower('&dbDataTableSpace..dbf'),
+new  13:                      lower('xyz_repqueue_18_1001_DATA.dbf'),
+old  20:      utl_file.fremove('EXT_DATA_FILES', '&dbDataTableSpace..dbf');
+new  20:      utl_file.fremove('EXT_DATA_FILES', 'xyz_repqueue_18_1001_DATA.dbf');
+old  23:   execute immediate 'DROP TABLESPACE &dbIndexTableSpace. INCLUDING CONTENTS AND DATAFILES';
+new  23:   execute immediate 'DROP TABLESPACE xyz_repqueue_18_1001_INDEX INCLUDING CONTENTS AND DATAFILES';
+old  25:                      lower('&dbIndexTableSpace..dbf'),
+new  25:                      lower('xyz_repqueue_18_1001_INDEX.dbf'),
+old  32:      utl_file.fremove('EXT_DATA_FILES', '&dbIndexTableSpace..dbf');
+new  32:      utl_file.fremove('EXT_DATA_FILES', 'xyz_repqueue_18_1001_INDEX.dbf');
+DECLARE
+*
+ERROR at line 1:
+ORA-00959: tablespace 'XYZ_REPQUEUE_18_1001_DATA' does not exist 
+ORA-06512: at line 11 
+
+

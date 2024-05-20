@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportDefinitions xmlns="http://micros.com/xstore/config/report"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../config-objects/schema/ReportDefinitions.xsd">
+
+  <ReportDefinition name="CUSTOM_REPORT"
+    title="_rptCustomReportTitle"
+    dataTemplate="version1/report/customreport/customreport.xdt"
+    layoutTemplate="version1/report/customreport/customreport.rtf"
+  />
+</ReportDefinitions>

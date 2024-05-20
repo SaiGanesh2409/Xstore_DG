@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SysConfig xmlns="http://micros.com/xstore/config/settings">
+    <Setting name="Email---DefaultMailHost">${dtv.email.host}</Setting>
+    <Setting name="Email---DefaultMailPort">${dtv.email.port}</Setting>
+    <Setting name="Email---DefaultSender">${dtv.email.default.sender}</Setting>
+    <Setting name="Email---Receipt---From">${dtv.email.receipt.from}</Setting>
+    <Setting name="Email---SmtpDebug">${dtv.email.smtp.debug}</Setting>
+    <Setting name="Email---UseSmtpAuth">${dtv.email.smtp.auth}</Setting>
+    <Setting name="Location---OvertimeRuleType">WEEKLYOVER40</Setting>
+    <Setting name="SendSale---SendTaxType">DESTINATION</Setting>
+    <Setting name="PromptForCustomerOnLogin">false</Setting>
+    
+    
+    <Setting name="Email---DefaultMailHost">${dtv.email.host}</Setting>
+    <Setting name="Email---DefaultMailPort">${dtv.email.port}</Setting>
+    <Setting name="Email---DefaultSender">${dtv.email.default.sender}</Setting>
+    <Setting name="Email---Receipt---From">${dtv.email.receipt.from}</Setting>
+    <Setting name="Email---SmtpDebug">${dtv.email.smtp.debug}</Setting>
+    <Setting name="Email---UseSmtpAuth">${dtv.email.smtp.auth}</Setting>
+    <Setting name="Location---OvertimeRuleType">WEEKLYOVER40</Setting>
+    <Setting name="SendSale---SendTaxType">DESTINATION</Setting>
+    
+    <!-- Department, Sub-department, class and subclass hierarchy ids can be configured.
+    	Parent Item ids will extracted for configured hierarchy ids and will be shown in list
+     -->
+    <Setting name="NonMerch---FSParentItemsHierarchyIds">7519</Setting>
+    
+</SysConfig>

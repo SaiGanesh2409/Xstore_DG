@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://micros.com/xstore/config/action" xsi:noNamespaceSchemaLocation="ActionConfig.xsd">
+
+
+<Action name="ADMIN::TRAINING_MODE_ENTER" category="Anywhere" keywords="back_office" text="_trainingmodeMenuKeyEntry" chainKey="TRAINING_MODE_ENTER">
+    <VisibilityRule class="dtv.pos.framework.appmanagement.training.TrainingModeEnabledAccessCheck" />
+    <VisibilityRule class="dtv.pos.framework.appmanagement.training.TrainingModeActiveRule" inverted="false" />
+    <VisibilityRule class="dtv.pos.framework.action.access.HideForFormFactorRule">
+      <Parameter name="FormFactor" value="handheld" />
+      <Parameter name="FormFactor" value="tablet" />
+      <Parameter name="FormFactor" value="thin" />
+    </VisibilityRule>
+  </Action>
+  <Action name="ADMIN::TRAINING_MODE_EXIT" category="Anywhere" keywords="back_office" text="_trainingmodeMenuKeyExit" chainKey="TRAINING_MODE_EXIT">
+    <VisibilityRule class="dtv.pos.framework.appmanagement.training.TrainingModeActiveRule" />
+  </Action>
+  
+  
+  <Action name="ADMIN::CUSTOM_REPORT" category="Report" keywords="report" text="_menutextCustomReport" chainKey="CUSTOM_REPORT">
+    <IconGroup icon="_imageMenuReport" />
+  </Action>
+  
+  
+  
+  <Action name="SALE::FINANCIAL_SERVICES" category="Register" chainKey="FS_PARENT_ITEMS_START" text="_financialServices">
+</Action>
+  
+
+  
+  
+  
+</ActionSet>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://micros.com/xstore/config/query ../../../../../../config-objects/schema/QueryConfig.xsd">
+ <Queries>
+
+<Query name="MATRIX_MERCH_HIERARCHY_LOOKUP" pmType="ITEM">
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass>dtv.xst.query.results.MatrixMerchHierarchyQueryResult</ResultClass>
+    <ResultField name="HierarchyId" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="LevelCode" type="String" />
+    <ResultField name="ParentId" type="String" />
+    <ResultField name="ItemMatrixColor" type="String" />
+    <ResultField name="SortOrder" type="Integer" />
+    <SQL>
+      <Statement>
+        <![CDATA[
+        SELECT
+          m.hierarchy_id AS hierarchyId,
+          m.description AS description,
+          m.level_code AS levelCode,s
+          m.parent_id AS parentId,
+          m.item_matrix_color AS itemMatrixColor,
+          COALESCE(s.sort_order, -1) AS sortOrder
+        FROM 
+          itm_merch_hierarchy m
+        LEFT JOIN
+          itm_matrix_sort_order s
+        ON
+          m.organization_id = s.organization_id AND
+          m.hierarchy_id = s.matrix_sort_id
+        WHERE
+          m.organization_id = ? AND
+          COALESCE(m.hidden_flag, 0) = 0 AND
+          COALESCE(m.disallow_matrix_display_flag, 0) = 0 AND
+          COALESCE(/*UPPER*/ s.matrix_sort_type, 'ITEM_MERCH') = 'ITEM_MERCH'
+          AND m.HIERARCHY_ID LIKE '201%'
+      ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Property>
+      <Key>MaxRows</Key>
+      <Value><![CDATA[350]]></Value>
+    </Property>
+  </Query>
+  
+  <Query name="MATRIX_ITEM_LOOKUP" pmType="ITEM">
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultFilter>levelCodeLevelValueResultFilter</ResultFilter>
+    <ResultClass>dtv.xst.query.results.MatrixItemQueryResult</ResultClass>
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="ItemMatrixColor" type="String" />
+    <ResultField name="DisallowMatrixDisplay" type="Boolean" />
+    <ResultField name="MerchLevel1Id" type="String" />
+    <ResultField name="MerchLevel2Id" type="String" />
+    <ResultField name="MerchLevel3Id" type="String" />
+    <ResultField name="MerchLevel4Id" type="String" />
+    <ResultField name="SortOrder" type="Integer" />
+    <ResultField name="AvailabilityCode" type="String" />
+    <ResultField name="LevelCode" type="String" />
+    <ResultField name="LevelValue" type="String" />
+    <SQL>
+      <Statement><![CDATA[
+      
+        SELECT 
+          i.item_id AS itemId,
+          i.description AS description,
+          i.item_matrix_color AS itemMatrixColor,
+          i.disallow_matrix_display_flag,
+          i.merch_level_1 AS merchLevel1Id,
+          i.merch_level_2 AS merchLevel2Id,
+          i.merch_level_3 AS merchLevel3Id,
+          i.merch_level_4 AS merchLevel4Id,
+          COALESCE(s.sort_order, -1) AS sortOrder,
+          o.item_availability_code,
+          o.level_code,
+          o.level_value
+        FROM 
+          itm_item i JOIN itm_item_options o ON i.organization_id = o.organization_id AND i.item_id = o.item_id
+        LEFT JOIN
+        itm_matrix_sort_order s
+      ON
+        i.organization_id = s.organization_id AND
+        i.item_id = s.matrix_sort_id
+      WHERE i.organization_id = ?
+        AND /*UPPER*/ i.item_lvlcode = 'ITEM'
+        AND COALESCE(i.disallow_matrix_display_flag, 0) = 0
+        AND COALESCE(/*UPPER*/ s.matrix_sort_type, 'ITEM') = 'ITEM'
+        AND i.merch_level_1 LIKE '201%'
+    
+    ]]></Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Property>
+      <Key>MaxRows</Key>
+      <Value><![CDATA[1000]]></Value>
+    </Property>
+    <Suffix><![CDATA[ORDER BY description, itemId ASC]]></Suffix>
+  </Query>
+  
+  <Query name="FS_PARENT_ITEMS">
+    <QueryHandler>dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass>dtv.xst.dao.itm.ItemId</ResultClass>
+    <SQL>
+      <WhereClause><![CDATA[
+          WHERE t.organization_id = ?
+            AND (/*UPPER*/ t.merch_level_1 IN ?
+            OR /*UPPER*/ t.merch_level_2 IN ?
+            OR /*UPPER*/ t.merch_level_3 IN ?
+            OR /*UPPER*/ t.merch_level_4 IN ?)
+            AND t.item_lvlcode = 'STYLE'
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argMerchlevel1Id" />
+      <Parameter name="@argMerchlevel2Id" />
+      <Parameter name="@argMerchlevel3Id" />
+      <Parameter name="@argMerchlevel4Id" />
+    </SQL>
+    <Suffix><![CDATA[ORDER BY t.organization_id, t.item_id ASC]]></Suffix>
+  </Query>
+  
+ </Queries>
+ </QuerySet>

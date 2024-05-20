@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://micros.com/xstore/config/listview">
+
+<Header name="FS_PARENT_ITEMS_RESULTS"> 
+    <Row>
+      <Column start="10" width="90" translatable="_availableItems" />
+    </Row>
+  </Header>
+  <Element name="FS_PARENT_ITEMS_RESULTS">
+    <Row>
+      <Column start="10" width="90" method="getName" />
+    </Row>
+  </Element>
+
+
+</ListView>

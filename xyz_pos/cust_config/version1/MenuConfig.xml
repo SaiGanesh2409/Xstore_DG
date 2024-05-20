@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MenuConfig.xsd" xmlns="http://micros.com/xstore/config/menu">
+
+
+ <MenuItem name="ADMIN::REPORTS" actionRef="ADMIN::REPORTS" keywords="report_customer,report_inventory,report_employee,report_till,report_system,report">
+    <MenuOption ref="ADMIN::VIEW_DASHBOARD" />
+    <SubMenu ref="REPORT::CUSTOMER_REPORTS" />
+    <MenuOption ref="ADMIN::ELECTRONIC_JOURNAL" />
+    <SubMenu ref="REPORT::EMPLOYEE_REPORTS" />
+    <SubMenu ref="REPORTS::FISCAL_REPORTS" text="_menuTextFiscalReports" displayType="LIST" category="Reports" keywords="report" />
+    <SubMenu ref="INVENTORY::REPORTS.EXCEPTIONS" />
+    <SubMenu ref="REPORT::OPERATIONS_REPORTS" />
+    <SubMenu ref="REPORT::SALES_REPORTS" /> 
+    <MenuOption ref="ADMIN::CUSTOM_REPORT" /> 
+     
+  </MenuItem>
+  
+  
+  
+  
+
+
+	<MenuItem name="SALE" text="_menuSale" category="Retail"
+		keywords="universal,sale,register_extended,register_all">
+		<MenuOption ref="RETURN" />
+
+		<SubMenu actionRef="RETAIL::MENU.MODIFY_LINE" sticky="false">
+			<MenuOptions ref="RETAIL::CHANGE_LINE" />
+			<MenuOption ref="RETAIL::ADD_LINE_COMMENT" />
+			<MenuOption ref="XSTOREM::REMOVE_COMMENT" />
+		</SubMenu>
+
+		<SubMenu ref="RETAIL::ADD_DISCOUNT" />
+
+		<!--  <SubMenu actionRef="SALE::MENU.ADD_NON_PHYSICAL"
+			sticky="false" displayType="LIST">
+			<MenuOption ref="SALE::ADD_NON_PHYSICAL" />
+			<MenuOption ref="SALE::ADD_GIFT_CARD" />
+			<MenuOption ref="SALE::ADD_GIFT_CERTIFICATE" />
+			<MenuOption ref="SALE::PHONE_TOPUP_MATRIX" />
+			<MenuOption ref="SALE::FINANCIAL_SERVICES" />
+		</SubMenu> -->
+
+		<MenuOption ref="SALE::FINANCIAL_SERVICES" />
+		<MenuOption ref="SALE::SELECT_GIFT_RECEIPTS" />
+
+		<SubMenu ref="RETAIL::EXTENDED_TRANS" />
+
+		<SubMenu ref="RETAIL::REGISTER_OPTIONS" />
+
+		<SubMenu ref="RETAIL::CUSTOMER_OPTIONS" sticky="false" />
+
+		<MenuOption ref="REGISTER::VIEW_ITEM_DETAILS" />
+
+		<SubMenu text="_itemFind" keyStroke="F9" sticky="false">
+			<MenuOption ref="SALE::PRICE_INQUIRY" />
+			<MenuOption ref="SALE::SEARCH_FOR_ITEM" />
+			<MenuOption ref="RETAIL::INVENTORY_LOCATOR"
+				keyStroke="F10" />
+			<MenuOption ref="SALE::GS1.MANUAL_ENTRY" keyStroke="F11" />
+		</SubMenu>
+
+		<MenuOption>
+			<Action ref="RETAIL::COMPLETE.TO_TENDERING" />
+			<Action ref="RETAIL::COMPLETE.NO_TENDERING" />
+		</MenuOption>
+
+		<MenuOption>
+			<Action ref="RETAIL::SUSPEND_TRANSACTION" />
+			<Action ref="RETAIL::RESUME_TRANSACTION" />
+		</MenuOption>
+	</MenuItem>
+
+  
+
+</MenuSet>

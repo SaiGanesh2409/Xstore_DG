@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src-test"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/xyz_pos"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/config-objects.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-barcode.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-bitmap.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-cheetah.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-data2.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-dtx.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-event.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-hardware.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-i18n.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-ipc.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-jmxutil.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-password.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-pricing2.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-scope.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-service.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-util.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-util-measurement.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-util-net.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-util-sequence.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-version.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/dtv-xstoregwt-util.jar"/>
+	<classpathentry kind="lib" path="F:/xstore21_worksapce/xstore21/release/hwserv/hardware-service/lib/hardware-service.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

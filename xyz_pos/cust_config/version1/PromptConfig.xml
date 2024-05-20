@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+   <PromptSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="PromptConfig.xsd" xmlns="http://micros.com/xstore/config/prompt">
+
+
+  <Prompt name="Customer_Info" type="NotifyYesNo" title="_customerInfo" message="_customerInformation" />
+
+
+
+
+<Prompt name="WORK_CODE" type="List" title="_selectworkcode" message="_promptmsg27">
+    	<ListViewType dtype="String">CODE_LIST</ListViewType>
+    	 <Action ref="CANCEL_BACK" />
+    	<Action dataKey="SKIP" text="_skip" keyStroke="F4" />
+    	<Action name="ACCEPT_YES" category="" keywords="exclude" ref="ACCEPT" text="_yes" keyStroke="Yes" />
+ 	</Prompt>
+ 	
+ 	
+ 
+  
+  <Prompt name="FS_PARENT_ITEMS_NOT_AVAILABLE" type="Notify" title="_addItem" message="_promptmsgdg1" />
+  
+  <Prompt name="FS_PARENT_ITEMS_RESULTS" type="List" title="_addItem" message="_promptmsgdg2">
+    <ListViewType dtype="String">FS_PARENT_ITEMS_RESULTS</ListViewType>
+  </Prompt>
+
+
+</PromptSet>
+    
+    
+
